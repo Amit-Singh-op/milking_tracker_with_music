@@ -19,6 +19,7 @@ export default function MilkingSession() {
   const [sessionDate, setSessionDate] = useState<string>("");
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [isPosted, setIsPosted] = useState(false);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     let interval: NodeJS.Timeout | undefined;
@@ -59,7 +60,9 @@ export default function MilkingSession() {
       milkCollected: milkQuantity,
     };
 
-    await createSession("/api/sessions", sessionData);
+    const value = await createSession("/api/sessions", sessionData);
+
+    setError(value === null);
 
     setTimeout(() => {
       setIsPosted(true);
@@ -138,7 +141,9 @@ export default function MilkingSession() {
       {isPosted && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm">
           <div className="p-6 rounded-lg text-white shadow-lg w-[90%] max-w-md border border-gray-700 text-center">
-            <h2 className="text-2xl font-bold mb-4">✅ Session Complete</h2>
+            <h2 className="text-2xl font-bold mb-4">
+              {error ? "couldn't connect to the server" : "✅ Session Complete"}
+            </h2>
             <motion.button
               className="px-4 py-2 text-lg font-semibold text-white border border-gray-600 backdrop-blur-lg bg-opacity-10 rounded-lg shadow-lg transition-all hover:bg-white hover:bg-opacity-20 hover:text-gray-900 cursor-pointer"
               onClick={() => router.push("/")}
