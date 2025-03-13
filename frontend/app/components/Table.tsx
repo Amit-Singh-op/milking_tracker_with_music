@@ -1,43 +1,41 @@
 import { motion } from "framer-motion";
 
 interface Session {
-  id: string;
-  start_time: string;
-  end_time: string;
+  _id: string;
+  date: string;
+  startTime: string;
+  endTime: string;
   duration: number;
-  milk_quantity: number;
+  milkCollected: number;
 }
 
 export default function Table({ data }: { data: Session[] }) {
   return (
     <div className="overflow-x-auto">
-      <table className="w-full bg-white text-black rounded-lg overflow-hidden hidden sm:table">
-        <thead className="bg-gray-300">
+      <table className="w-full bg-black bg-opacity-50 backdrop-blur-md text-white rounded-lg border border-gray-500 hidden sm:table">
+        <thead className="bg-gray-800 bg-opacity-50">
           <tr>
-            <th className="p-3 text-left">Date</th>
-            <th className="p-3 text-left">Start Time</th>
-            <th className="p-3 text-left">End Time</th>
-            <th className="p-3 text-left">Duration</th>
-            <th className="p-3 text-left">Milk (L)</th>
+            <th className="p-3 text-left border-b border-gray-500">Date</th>
+            <th className="p-3 text-left border-b border-gray-500">
+              Start Time
+            </th>
+            <th className="p-3 text-left border-b border-gray-500">End Time</th>
+            <th className="p-3 text-left border-b border-gray-500">Duration</th>
+            <th className="p-3 text-left border-b border-gray-500">Milk (L)</th>
           </tr>
         </thead>
         <tbody>
           {data.map((session) => (
             <motion.tr
-              key={session.id}
-              className="border-t hover:bg-gray-200 transition duration-200"
+              key={session._id}
+              whileHover={{ backgroundColor: "rgba(128,128,128,0.2)" }}
+              className="border-t border-gray-500 transition duration-200"
             >
-              <td className="p-3">
-                {new Date(session.start_time).toLocaleDateString()}
-              </td>
-              <td className="p-3">
-                {new Date(session.start_time).toLocaleTimeString()}
-              </td>
-              <td className="p-3">
-                {new Date(session.end_time).toLocaleTimeString()}
-              </td>
+              <td className="p-3">{session.date}</td>
+              <td className="p-3">{session.startTime}</td>
+              <td className="p-3">{session.endTime}</td>
               <td className="p-3">{session.duration} sec</td>
-              <td className="p-3">{session.milk_quantity} L</td>
+              <td className="p-3">{session.milkCollected} L</td>
             </motion.tr>
           ))}
         </tbody>
@@ -47,27 +45,24 @@ export default function Table({ data }: { data: Session[] }) {
       <div className="sm:hidden space-y-4">
         {data.map((session) => (
           <motion.div
-            key={session.id}
+            key={session._id}
             whileHover={{ scale: 1.02 }}
-            className="bg-white p-4 rounded-lg shadow-md"
+            className="bg-black bg-opacity-50 backdrop-blur-md p-4 rounded-lg border border-gray-500 shadow-lg"
           >
-            <p className="text-gray-600">
-              <strong>Date:</strong>{" "}
-              {new Date(session.start_time).toLocaleDateString()}
+            <p className="text-white">
+              <strong>Date:</strong> {session.date}
             </p>
-            <p className="text-gray-600">
-              <strong>Start:</strong>{" "}
-              {new Date(session.start_time).toLocaleTimeString()}
+            <p className="text-white">
+              <strong>Start:</strong> {session.startTime}
             </p>
-            <p className="text-gray-600">
-              <strong>End:</strong>{" "}
-              {new Date(session.end_time).toLocaleTimeString()}
+            <p className="text-white">
+              <strong>End:</strong> {session.endTime}
             </p>
-            <p className="text-gray-600">
+            <p className="text-white">
               <strong>Duration:</strong> {session.duration} sec
             </p>
-            <p className="text-gray-600">
-              <strong>Milk:</strong> {session.milk_quantity} L
+            <p className="text-white">
+              <strong>Milk:</strong> {session.milkCollected} L
             </p>
           </motion.div>
         ))}

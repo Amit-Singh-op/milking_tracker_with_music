@@ -11,7 +11,7 @@ export default function MusicVisualizer({ isPlaying }: { isPlaying: boolean }) {
       {bars.map(({ delay, duration }, i) => (
         <motion.div
           key={i}
-          className="w-2 bg-blue-400 rounded-full shadow-md"
+          className="w-2 bg-gray-600 rounded-full shadow-md"
           animate={{
             height: isPlaying ? [10, 35, 10] : [20, 20, 20],
           }}
