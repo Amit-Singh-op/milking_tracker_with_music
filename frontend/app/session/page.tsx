@@ -90,7 +90,7 @@ export default function MilkingSession() {
             onClick={() => setIsPlaying(!isPlaying)}
             whileTap={{ scale: 0.95 }}
           >
-            {isPlaying ? "⏸ Pause" : "▶ Play"}
+            {isPlaying ? "⏸ Pause" : "▶ Resume"}
           </motion.button>
           <motion.button
             className="w-32 sm:w-36 md:w-40 px-6 py-3 text-lg font-semibold text-white border border-gray-400 backdrop-blur-lg bg-opacity-10 rounded-lg shadow-lg transition-all hover:bg-white hover:bg-opacity-20 hover:text-gray-900 cursor-pointer"
